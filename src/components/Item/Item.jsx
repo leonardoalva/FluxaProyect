@@ -21,7 +21,7 @@ const Item = ({ id, name, price, description, imageUrl, children, category }) =>
         src={imageUrl}
         alt={description || name}
       />
-
+      <div className="divDetailCard">
       <h3 className="nombre_card">{name}</h3>
       <div className="precio-detalle">
         <span className="precio_card">${price}</span>
@@ -35,7 +35,7 @@ const Item = ({ id, name, price, description, imageUrl, children, category }) =>
         )}
       </div>
       <p className="descripcion_card">{description}</p>
-
+        
 
 {/*  Si se pasan children, renderizarlos; si no, renderizar el Counter */}
 
@@ -49,6 +49,8 @@ const Item = ({ id, name, price, description, imageUrl, children, category }) =>
           }
         />
       )}
+
+      </div>
     </article>
   );
 };
