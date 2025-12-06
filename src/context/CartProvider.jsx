@@ -3,6 +3,7 @@ import { CartContext } from "./CartContext";
 import { useState, useEffect } from "react";
 import { AbortedDeferredError } from "react-router-dom";
 import Swal from "sweetalert2";
+import { updateProductStock } from "../services/products";
 
 function CartProvider({ children }) {
   // Estado del carrito arranca vacío
@@ -104,6 +105,7 @@ function CartProvider({ children }) {
     setCarrito([]);
   };
   }
+
 const checkout = async () => {
   const result = await Swal.fire({
     title: '¿Finalizar compra?',
@@ -117,15 +119,34 @@ const checkout = async () => {
   });
 
   if (result.isConfirmed) {
-    clearCart();
-    Swal.fire({
-      title: '¡Compra realizada!',
-      text: 'Tu pedido ha sido procesado exitosamente.',
-      icon: 'success',
-      timer: 2500,
-      timerProgressBar: true,
-      showConfirmButton: false,
-    });
+    try {
+
+      
+      // Actualizar stock de cada producto en la API
+      for (const item of carrito) {
+        const currentProduct = await fetch(`https://6909e3d91a446bb9cc20771b.mockapi.io/products/${item.id}`).then(res => res.json());
+        const newStock = (currentProduct.stock || 0) - item.count;
+        await updateProductStock(item.id, newStock);
+      }
+
+      clearCart();
+      Swal.fire({
+        title: '¡Compra realizada!',
+        text: 'Tu pedido ha sido procesado exitosamente.',
+        icon: 'success',
+        timer: 2500,
+        timerProgressBar: true,
+        showConfirmButton: false,
+      });
+    } catch (error) {
+      Swal.fire({
+        title: 'Error',
+        text: 'Hubo un problema al procesar tu compra.',
+        icon: 'error',
+        confirmButtonColor: '#748DAE'
+      });
+      console.error('Error en checkout:', error);
+    }
   }
 };
 

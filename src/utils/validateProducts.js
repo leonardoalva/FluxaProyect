@@ -21,6 +21,10 @@ export const validateProducts = (product, fileRequired=true) =>    {
         errors.file = "El archivo es obligatorio";
     }
 
+    if (product.stock == null || product.stock < 0) {
+        errors.stock = "El stock debe ser un número no negativo";
+    }
+
     return errors;
 
 }

@@ -5,14 +5,8 @@ import "./Cart.css";
 const Cart = () => {
   const { cart, borrarDelCarrito, getTotal, checkout, clearCart} = useCart();
 
-  console.log("Carrito en componente Cart:", cart);
-
   const totalAmount = getTotal().toFixed(2);
 
-  const imgSrc = (imageUrl, name) => {
-    if (!imageUrl) return "/images/placeholder.png";
-    return imageUrl.startsWith("/") ? imageUrl : `/${imageUrl}`;
-  };
 
   return (
     <div className="cart">
@@ -22,11 +16,12 @@ const Cart = () => {
         <p className="cart__empty">El carrito está vacío.</p>
       ) : (
         <ul className="cart-list">
+          {/* Renderizar cada ítem del carrito */}
           {cart.map((item) => (
             <li className="cart-item" key={item.id}>
               <img
                 className="cart-item__img"
-                src={imgSrc(item.imageUrl, item.name)}
+                src={item.imageUrl}
                 alt={item.name}
                 width="48"
                 height="48"

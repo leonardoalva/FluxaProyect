@@ -31,6 +31,13 @@ export const ProductFormUI = ({product, errors, loading, onChange, onFileChange,
                 <input type="file" name="file" accept="image/*" onChange={(e)=> onFileChange(e.target.files?.[0] ?? null)} required />
                 {errors.file && <span className="error">{errors.file}</span>}
             </div>
+
+            <div>
+                <label className="label-upload" htmlFor="stock">Stock</label>
+                <input type="number" name="stock" value={product.stock} onChange={onChange} required />
+                {errors.stock && <span className="error">{errors.stock}</span>}
+            </div>
+
             <button className="btn" type="submit" disabled={loading}>
                 {loading ? 'Guardando...' : 'Guardar'}
             </button>
