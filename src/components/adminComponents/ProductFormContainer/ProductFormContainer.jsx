@@ -15,6 +15,7 @@ export const ProductFormContainer = () => {
     price: "",
     description: "",
     category: "",
+    stock: "",
     file: null,
   });
 
@@ -52,7 +53,7 @@ export const ProductFormContainer = () => {
       await createProduct(productData);
       alert("Producto creado exitosamente");
 
-      setProduct({name: "", price: "", description: "", category: ""});
+      setProduct({name: "", price: "", description: "", category: "", stock: ""});
       setFile(null);
 
 
