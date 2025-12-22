@@ -23,3 +23,15 @@ export const createProduct = async (product) => {
 
     return await response.json();
 };
+
+export const deleteProduct = async (id) => {
+    const response = await fetch(`${BASE_URL}/${id}`, {
+        method: 'DELETE'
+    });
+
+    if (!response.ok) {
+        throw new Error('Error al eliminar el producto');
+    }
+
+    return await response.json();
+};

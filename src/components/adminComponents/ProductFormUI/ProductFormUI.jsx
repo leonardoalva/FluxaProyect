@@ -26,9 +26,16 @@ export const ProductFormUI = ({product, errors, loading, onChange, onFileChange,
                 <input type="text" name="category" value={product.category} onChange={onChange} required />
                 {errors.category && <span className="error">{errors.category}</span>}
             </div>
+
+            <div>
+                <label className="label-upload" htmlFor="stock">Stock</label>
+                <input  type="number" name="stock" value={product.stock} onChange={onChange} min="0" />
+                {errors.stock && <span className="error">{errors.stock}</span>}
+            </div>
+
             <div>
                 <label className="label-upload" htmlFor="file">Imagen</label>
-                <input type="file" name="file" accept="image/*" onChange={(e)=> onFileChange(e.target.files?.[0] ?? null)} required />
+                <input className="img-admin" type="file" name="file" accept="image/*" onChange={(e)=> onFileChange(e.target.files?.[0] ?? null)} required />
                 {errors.file && <span className="error">{errors.file}</span>}
             </div>
             <button className="btn" type="submit" disabled={loading}>

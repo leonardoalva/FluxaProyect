@@ -6,7 +6,7 @@ import { createProduct } from "../../../services/products";
 
 import "./ProductFormContainer.css";
 
-export const ProductFormContainer = () => {
+export const ProductFormContainer = ({ onCreated }) => {
   const [loading, setLoading] = useState();
   const [file, setFile] = useState(null);
   const [errors, setErrors] = useState({});
@@ -44,9 +44,11 @@ export const ProductFormContainer = () => {
     // Proceed with image upload and product creation
     try {
       const imageUrl = await uploadToImgbb(file);
+      const stockValue = Number(product.stock);
       const productData = {
         ...product,
         price: Number(product.price),
+        stock: Number.isNaN(stockValue) ? 0 : stockValue,
         imageUrl,
       };
 
@@ -55,6 +57,8 @@ export const ProductFormContainer = () => {
 
       setProduct({name: "", price: "", description: "", category: "", stock: ""});
       setFile(null);
+
+      if (onCreated) onCreated();
 
 
 

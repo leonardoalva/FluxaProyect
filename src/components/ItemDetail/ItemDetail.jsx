@@ -19,7 +19,7 @@ const ItemDetail = ({ detail }) => {
     //en Item y dejar como estaba el ItemList, sin modificaciones
 
     <Item {...detail}>
-      <Counter btnText="Agregar" onConfirm={handleAdd}  />
+      <Counter btnText="Agregar" onConfirm={handleAdd} stock={detail.stock} />
 
       {/* <Counter item={detail} btnText="Agregar" onClick={() => agregarAlCarrito(detail)}  /> */}
     </Item>

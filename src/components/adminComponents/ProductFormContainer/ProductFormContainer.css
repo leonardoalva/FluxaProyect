@@ -1,17 +1,85 @@
-.product-form-container {
-    max-width: 600px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    justify-content: space-around
+/* Product Form Container - Polished & Responsive */
+:root{
+  --bg: #ffffff;
+  --muted: #6b7280;
+  --accent: #111827;
+  --primary: #4f46e5;
+  --card-shadow: 0 10px 30px rgba(2,6,23,0.06);
+  --border: rgba(2,6,23,0.04);
 }
 
-.label-upload {
-    font-weight: 600;
-    margin-bottom: 8px;
-    margin: 10px;
+.product-form-container{
+  max-width: 820px;
+  margin: 1rem auto;
+  padding: 1.1rem;
+  background: var(--bg);
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: .9rem;
+  box-sizing: border-box;
+  width: 100%;
 }
+
+.product-form-container h2{
+  margin: 0 0 .5rem 0;
+  font-size: 1.1rem;
+  color: var(--accent);
+}
+
+/* Form layout: single column by default */
+.product-form-container > div{
+  display:flex;flex-direction:column;gap:.45rem
+}
+
+.label-upload{
+  font-weight:700;color:var(--muted);font-size:.92rem;margin-bottom:2px
+}
+
+.product-form-container input[type="text"],
+.product-form-container input[type="number"],
+.product-form-container textarea{
+  padding:.6rem .75rem;border-radius:10px;border:1px solid var(--border);font-size:.96rem;color:var(--accent);background:#fff;box-sizing:border-box
+}
+
+.product-form-container textarea{min-height:120px;resize:vertical}
+
+/* File input, submit row */
+.product-form-container .file-row,
+.product-form-container .submit-row{display:flex;justify-content:space-between;align-items:center;gap:.6rem}
+
+.input-note{font-size:.82rem;color:var(--muted)}
+
+.btn{
+  background:var(--primary);color:#fff;border:none;padding:.6rem .95rem;border-radius:10px;font-weight:700;cursor:pointer;transition:background .12s ease,transform .08s ease
+}
+.btn:hover{transform:translateY(-2px);background:#4338ca}
+.btn:disabled{opacity:.65;cursor:not-allowed}
+
+.error{color:#ef4444;font-size:.88rem}
+
+/* Two-column layout on wider screens */
+@media (min-width:760px){
+  .product-form-container{grid-template-columns:1fr;align-items:start}
+  .product-form-container textarea{grid-column:1 / -1}
+  .product-form-container .file-row,.product-form-container .submit-row{grid-column:1 / -1}
+  .product-form-container > div{margin:0}
+}
+
+/* Compact for very small screens */
+@media (max-width:420px){
+  .product-form-container{padding:.85rem;border-radius:10px}
+  .product-form-container input[type="text"],
+  .product-form-container input[type="number"],
+  .product-form-container textarea{padding:.5rem .6rem;font-size:.93rem}
+  .product-form-container h2{font-size:1rem}
+}
+
+/* Visual helper: file input fallback styling */
+.product-form-container input[type="file"]{padding:.45rem;border-radius:8px;border:1px dashed var(--border)}
+
+/* Add a subtle focus ring for accessibility */
+.product-form-container input:focus,
+.product-form-container textarea:focus{outline:3px solid rgba(79,70,229,0.08);outline-offset:2px}

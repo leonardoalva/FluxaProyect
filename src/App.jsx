@@ -10,6 +10,7 @@ import Form from "./components/Form/Form";
 import { useParams } from "react-router-dom";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ProductFormContainer } from "./components/adminComponents/ProductFormContainer/ProductFormContainer";
+import AdminPanel from "./components/adminPanel/adminPanel";
 
 function App() {
   const { id } = useParams();
@@ -22,7 +23,7 @@ function App() {
           <Route path="/" element={<Inicio />} />
 
           <Route path="/contact" element={<Form />} />
-          <Route path="/admin" element={<ProductFormContainer />} />
+          <Route path="/admin" element={<AdminPanel />} />
           <Route
             path="/category/:category"
             element={<ItemListContainer titulo="categoria" />}

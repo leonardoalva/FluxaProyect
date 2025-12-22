@@ -4,7 +4,7 @@ import "./Item.css";
 import React from "react";
 import { useCart } from "../../context/useCart";
 
-const Item = ({ id, name, price, description, imageUrl, children, category }) => {
+const Item = ({ id, name, price, description, imageUrl, children, category, stock }) => {
   // Obtener la ubicación actual para condicionales de renderizado
   const location = useLocation();
   const { agregarAlCarrito } = useCart();
@@ -44,6 +44,7 @@ const Item = ({ id, name, price, description, imageUrl, children, category }) =>
       ) : (
         <Counter
           btnText="Agregar"
+          stock={stock}
           onConfirm={(quantity) =>
             agregarAlCarrito({ id, name, price, description, imageUrl, count: quantity, category })
           }
