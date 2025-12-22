@@ -22,7 +22,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Inicio />} />
 
-          <Route path="/contact" element={<Form />} />
           <Route path="/admin" element={<AdminPanel />} />
           <Route
             path="/category/:category"

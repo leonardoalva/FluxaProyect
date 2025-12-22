@@ -91,8 +91,8 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/contact" onClick={() => setIsOpen(false)}>
-              Contact
+            <Link to="/admin" onClick={() => setIsOpen(false)}>
+              Admin
             </Link>
           </li>
         </ul>

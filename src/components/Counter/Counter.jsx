@@ -38,13 +38,8 @@ function Counter({ onConfirm, btnText, stock }) {
         -
       </button>
 
-      <div style={{display:'flex',flexDirection:'column',alignItems:'center',gap:4}}>
+      <div className="counter-display">
         <p style={{margin:0}}>{counter}</p>
-        {noStock ? (
-          <small style={{color:'#ef4444',fontSize:12}}>Sin stock</small>
-        ) : Number.isFinite(maxAllowed) ? (
-          <small style={{color:'#6b7280',fontSize:12}}>Máx: {maxAllowed}</small>
-        ) : null}
       </div>
 
       <button

@@ -5,9 +5,14 @@ import "./Cart.css";
 const Cart = () => {
   const { cart, borrarDelCarrito, getTotal, checkout, clearCart} = useCart();
 
-  console.log("Carrito en componente Cart:", cart);
+  // Mantener un estado local del total para mostrar cambios reactivos y poder
+  // animar o reaccionar cuando cambie (se recalcula en useEffect)
+  const [totalAmount, setTotalAmount] = React.useState(() => getTotal().toFixed(2));
 
-  const totalAmount = getTotal().toFixed(2);
+  React.useEffect(() => {
+    setTotalAmount(getTotal().toFixed(2));
+    console.log('Carrito actualizado (desde Cart component):', cart);
+  }, [cart, getTotal]);
 
   const imgSrc = (imageUrl, name) => {
     if (!imageUrl) return "/images/placeholder.png";

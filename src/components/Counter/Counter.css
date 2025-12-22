@@ -1,7 +1,7 @@
-.btn_counter{
+.btn_counter {
   margin: 5px;
   padding: 8px 12px;
-  background: linear-gradient(180deg,#9ECAD6,#748DAE);
+  background: linear-gradient(180deg, #9ecad6, #748dae);
   border: none;
   color: #fff;
   text-align: center;
@@ -10,10 +10,10 @@
   font-size: 14px;
   border-radius: 10px;
   cursor: pointer;
-  box-shadow: 0 6px 12px rgba(116,141,174,0.06);
+  box-shadow: 0 6px 12px rgba(116, 141, 174, 0.06);
 }
 
-.Counter_Container{
+.Counter_Container {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -21,11 +21,28 @@
   gap: 8px;
 }
 
-.btn_counter:active{ transform: translateY(1px); }
-.btn_counter:disabled{ opacity: 0.5; cursor: not-allowed; }
+.counter-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4;
+}
+
+.btn_counter:active {
+  transform: translateY(1px);
+}
+.btn_counter:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 
 /* Small responsive tweaks */
-@media (max-width:420px){
-  .Counter_Container{gap:6px}
-  .btn_counter{padding:6px 10px;font-size:13px}
+@media (max-width: 420px) {
+  .Counter_Container {
+    gap: 6px;
+  }
+  .btn_counter {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
 }
