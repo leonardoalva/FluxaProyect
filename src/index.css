@@ -4,8 +4,10 @@
   font-weight: 400;
 
   color-scheme: light;
-  color: #748DAE;
-  background-color: #F5CBCB;
+/* 
+    color: #748DAE;
+  background-color: #F5CBCB; */
+  background-color: rgb(208, 208, 208);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;

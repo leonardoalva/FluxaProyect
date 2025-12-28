@@ -32,7 +32,7 @@ const ItemListContainer = ({ titulo }) => {
   // renderizado
     return (
     <main className="item-list-container">
-      <h1 className="tituloItemList">{titulo}</h1>
+
 
       <div>
         {products.length > 0 ? <ItemList products={products} /> : <p>Cargando productos...</p>
