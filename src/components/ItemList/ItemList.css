@@ -21,6 +21,8 @@
 .categorySection{
   margin-bottom: 36px;
   padding: 0 6px;
+  border: solid black 2px;
+  border-radius: 8px;
 }
 
 .categoryTitle{
