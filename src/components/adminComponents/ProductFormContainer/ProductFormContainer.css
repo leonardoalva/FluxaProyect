@@ -1,11 +1,11 @@
-/* Product Form Container - Polished & Responsive */
+/* Product Form Container - grayscale/minimal */
 :root{
   --bg: #ffffff;
-  --muted: #6b7280;
-  --accent: #111827;
-  --primary: #4f46e5;
-  --card-shadow: 0 10px 30px rgba(2,6,23,0.06);
-  --border: rgba(2,6,23,0.04);
+  --muted: #6b6b6b;
+  --accent: #111111;
+  --primary: #111111;
+  --card-shadow: 0 6px 14px rgba(0,0,0,0.04);
+  --border: rgba(0,0,0,0.06);
 }
 
 .product-form-container{
@@ -53,12 +53,12 @@
 .input-note{font-size:.82rem;color:var(--muted)}
 
 .btn{
-  background:var(--primary);color:#fff;border:none;padding:.6rem .95rem;border-radius:10px;font-weight:700;cursor:pointer;transition:background .12s ease,transform .08s ease
+  background:var(--primary);color:#fff;border:none;padding:.6rem .95rem;border-radius:8px;font-weight:700;cursor:pointer;transition:transform .08s ease,box-shadow .12s ease
 }
-.btn:hover{transform:translateY(-2px);background:#4338ca}
-.btn:disabled{opacity:.65;cursor:not-allowed}
+.btn:hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(0,0,0,0.06)}
+.btn:disabled{opacity:.65;cursor:not-allowed} 
 
-.error{color:#ef4444;font-size:.88rem}
+.error{color:#6b6b6b;font-size:.88rem}
 
 /* Two-column layout on wider screens */
 @media (min-width:760px){

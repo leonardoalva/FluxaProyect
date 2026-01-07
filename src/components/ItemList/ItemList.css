@@ -1,5 +1,5 @@
 /* Minimal, profesional y agradable visualmente */
-:root{
+:root {
   --bg: #f7f7f7;
   --card-bg: #ffffff;
   --muted: #6b6b75;
@@ -9,23 +9,17 @@
   --shadow: 0 6px 18px rgba(17, 24, 39, 0.06);
 }
 
-.itemList_grid{
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  gap: var(--gap);
-  padding: 10px 8px;
-  align-items: start;
-}
+
 
 /* Category section */
-.categorySection{
+.categorySection {
   margin-bottom: 36px;
   padding: 0 6px;
-  border: solid black 2px;
+  border: 3px solid rgba(0, 0, 0, 0.06);
   border-radius: 8px;
 }
 
-.categoryTitle{
+.categoryTitle {
   font-size: 0.98rem;
   font-weight: 600;
   color: var(--accent);
@@ -37,40 +31,21 @@
   gap: 8px;
 }
 
-.categoryTitle::after{
+.categoryTitle::after {
   content: "";
   flex: 1;
   height: 1px;
-  background: rgba(16,24,40,0.06);
+  background: rgba(16, 24, 40, 0.06);
   margin-left: 12px;
 }
 
-.categoryGrid{
-  margin-top: 10px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: calc(var(--gap) - 6px);
-}
 
-/* Make item cards feel elevated but subtle (affects `.card` items inside grids) */
-.itemList_grid .card,
-.categoryGrid .card{
-  background: var(--card-bg);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  transition: transform 180ms ease, box-shadow 180ms ease;
-  overflow: hidden;
-}
 
-.itemList_grid .card:hover,
-.categoryGrid .card:hover{
-  transform: translateY(-4px);
-  box-shadow: 0 10px 30px rgba(17,24,39,0.09);
-}
+
 
 /* Small, clean empty state */
 .itemList_grid p,
-.categorySection p{
+.categorySection p {
   color: var(--muted);
   text-align: center;
   padding: 18px 12px;
@@ -78,12 +53,22 @@
 
 /* Responsive tweaks */
 @media (min-width: 600px) {
-  .itemList_grid{ padding: 12px 6px; }
-  .categoryTitle{ font-size: 1rem; }
+  .itemList_grid {
+    padding: 12px 6px;
+  }
+  .categoryTitle {
+    font-size: 1rem;
+  }
 }
 
 @media (min-width: 900px) {
-  .itemList_grid{ padding: 14px 10px; }
-  .categorySection{ margin-bottom: 44px; }
-  .categoryGrid{ gap: var(--gap); }
+  .itemList_grid {
+    padding: 14px 10px;
+  }
+  .categorySection {
+    margin-bottom: 44px;
+  }
+  .categoryGrid {
+    gap: var(--gap);
+  }
 }

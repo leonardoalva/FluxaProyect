@@ -50,8 +50,8 @@ function CartProvider({ children }) {
       text: "¿Deseas eliminar este producto del carrito?",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#748DAE',
-      cancelButtonColor: '#9ECAD6',
+      confirmButtonColor: '#111111',
+      cancelButtonColor: '#d1d5db',
       confirmButtonText: 'Sí, eliminar',
       cancelButtonText: 'Cancelar'
     });
@@ -84,8 +84,8 @@ function CartProvider({ children }) {
       text: '¿Estás seguro de que quieres vaciar tu carrito?',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#748DAE',
-      cancelButtonColor: '#9ECAD6',
+      confirmButtonColor: '#111111',
+      cancelButtonColor: '#d1d5db',
       confirmButtonText: 'Sí, vaciar',
       cancelButtonText: 'Cancelar'
     });
@@ -101,8 +101,8 @@ const checkout = async () => {
     text: '¿Estás seguro de que quieres completar tu compra?',
     icon: 'question',
     showCancelButton: true,
-    confirmButtonColor: '#748DAE',
-    cancelButtonColor: '#9ECAD6',
+    confirmButtonColor: '#111111',
+    cancelButtonColor: '#d1d5db',
     confirmButtonText: 'Sí, finalizar',
     cancelButtonText: 'Cancelar'
   });

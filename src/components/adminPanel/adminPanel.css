@@ -1,15 +1,15 @@
-/* Admin Panel - Polished & Responsive Product Grid */
+/* Admin Panel - grayscale */
 :root {
-  --bg: #f7fafc;
+  --bg: #ffffff;
   --card: #ffffff;
-  --muted: #6b7280;
-  --text: #0f172a;
-  --danger: #ef4444;
-  --accent: #0f172a;
-  --accent-600: #0b1220;
-  --success: #059669;
-  --shadow: 0 12px 28px rgba(2, 6, 23, 0.06);
-}
+  --muted: #6b6b6b;
+  --text: #111111;
+  --danger: #6b6b6b;
+  --accent: #111111;
+  --accent-600: #0b0b0b;
+  --success: #6b6b6b;
+  --shadow: 0 6px 14px rgba(0,0,0,0.04);
+} 
 
 .admin-panel {
   width: 100%;

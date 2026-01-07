@@ -27,7 +27,7 @@ const ItemList = ({ products }) => {
       {sortedCategories.map((cat) => (
         <section key={cat} className="categorySection">
           <h2 className="categoryTitle">{cat}</h2>
-          <div className="itemList_grid categoryGrid">
+          <div className="itemList_grid">
             {grouped[cat].map((prod) => (
               <Item key={prod.id} {...prod} />
             ))}

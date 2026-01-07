@@ -67,9 +67,9 @@
 
 /* Stock badge */
 .stock-badge.detail{padding:.28rem .6rem;border-radius:999px;font-weight:700;font-size:.85rem}
-.stock-available{background:#059669;color:#fff}
-.stock-low{background:#f59e0b;color:#fff}
-.stock-out{background:#ef4444;color:#fff}
+.stock-available{background:#111111;color:#fff}
+.stock-low{background:#6b6b6b;color:#fff}
+.stock-out{background:#6b6b6b;color:#fff} 
 
 .descripcion_card{font-size:1rem;color:#475569;line-height:1.6;max-height:none;display:block}
 

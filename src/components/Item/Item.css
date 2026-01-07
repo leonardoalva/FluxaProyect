@@ -1,22 +1,24 @@
 
 .card {
-  background: linear-gradient(135deg, #ffffff 0%, #FFEAEA 100%);
+  background: #ffffff;
   border-radius: 14px;
   padding: 16px;
   color: #2d3748;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  box-shadow: 0 4px 12px rgba(116, 141, 174, 0.1);
-  transition: all 0.3s cubic-bezier(0.2, 0.9, 0.25, 1);
-  border: 1px solid rgba(158, 202, 214, 0.2);
+  transition: all 0.2s ease;
+  border: 1px solid rgba(0,0,0,0.6);
   overflow: hidden;
 }
 
-.card:hover {
-  transform: translateY(-8px);
-  box-shadow: 1px 5px 5px rgba(116, 141, 174, 0.2);
-  border-color: rgba(116, 141, 174, 0.4);
+.card:hover,
+.card:active,
+.card:focus-within {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.8);
+  /* Sombra negra visible */
+  border-color: rgba(0,0,0,0.12);
 }
 
 .divDetailCard {
@@ -34,9 +36,9 @@
   height: 200px;
   object-fit: cover;
   border-radius: 10px;
-  background: linear-gradient(135deg, #9ECAD6, #F5CBCB);
+  background: #f3f3f3;
   display: block;
-  border: 1px solid rgba(158, 202, 214, 0.3);
+  border: 1px solid rgba(0,0,0,0.06);
 }
 
 /* ===== PRODUCT TITLE ===== */
@@ -45,7 +47,7 @@
   font-size: clamp(0.95rem, 2.5vw, 1.1rem);
   font-weight: 700;
   margin: 4px 0 0 0;
-  color: #2d3748;
+  color: var(--text);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -68,19 +70,19 @@
 .precio_card {
   font-size: clamp(0.9rem, 2vw, 1.1rem);
   font-weight: 700;
-  color: #748DAE;
-  background: rgba(116, 141, 174, 0.08);
+  color: var(--text);
+  background: rgba(0,0,0,0.04);
   padding: 6px 12px;
   border-radius: 8px;
   display: inline-block;
-  border: 1px solid rgba(116, 141, 174, 0.2);
+  border: 1px solid rgba(0,0,0,0.06);
 }
 
 /* ===== PRODUCT DESCRIPTION ===== */
 .descripcion_card {
   font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   font-size: 0.85rem;
-  color: #718096;
+  color: var(--muted);
   line-height: 1.5;
   max-height: 3rem;
   overflow: hidden;
@@ -103,10 +105,6 @@
   width: 100%;
   margin-top: 8px;
 }
-
-/* ===================================
-   Responsive Design - Mobile First
-   ================================== */
 
 /* Tablets (600px - 899px) */
 @media (min-width: 600px) {
@@ -172,35 +170,27 @@
 
 /* ===== DETAIL BUTTON ===== */
 .btn_detalle {
-  background: linear-gradient(135deg, #9ECAD6, #748DAE);
-  color: #ffffff;
-  border: none;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid rgba(0,0,0,0.08);
   padding: 10px 16px;
   border-radius: 8px;
   cursor: pointer;
   font-size: 0.85rem;
   font-weight: 600;
-  transition: all 0.25s ease;
-  box-shadow: 0 2px 6px rgba(116, 141, 174, 0.15);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
   letter-spacing: 0.02em;
   flex: 1;
 }
 
 .btn_detalle:hover {
-  background: linear-gradient(135deg, #748DAE, #9ECAD6);
-  box-shadow: 0 6px 16px rgba(116, 141, 174, 0.25);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.06);
 }
 
-.btn_detalle:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 6px rgba(116, 141, 174, 0.15);
-}
+.btn_detalle:active { transform: translateY(0); box-shadow: none }
 
-.btn_detalle:focus-visible {
-  outline: 2px solid #748DAE;
-  outline-offset: 2px;
-}
+.btn_detalle:focus-visible { outline: 2px solid rgba(0,0,0,0.08); outline-offset: 2px; }
 
 /* ===================================
    Accessibility & Preferences
@@ -214,7 +204,7 @@
   }
 
   .card:hover {
-    transform: none;
+    /* transform: none; */
   }
 
   .btn_detalle:hover {

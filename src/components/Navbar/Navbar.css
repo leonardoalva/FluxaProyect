@@ -1,15 +1,16 @@
-/* Variables de tema */
+/* Variables de tema (escala de grises) */
 :root {
-  --bg: #FFEAEA;
-  --surface: #F5CBCB;
-  --muted: #9ECAD6;
-  --text: #748DAE;
-  --accent: #748DAE;
-  --accent-strong: #9ECAD6;
-  --cart-occupied-bg: #9ECAD6; /* azul claro cuando hay items */
-  --cart-occupied-bg-dark: #748DAE;
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --muted: #6b6b6b;
+  --text: #111111;
+  --accent: #111111;
+  --accent-strong: #000000;
+  --cart-occupied-bg: #e5e7eb;
+  --cart-occupied-bg-dark: #d1d5db;
   --radius: 8px;
   --nav-transition: 280ms cubic-bezier(.22,.9,.36,1);
+  --shadow-strong: 0 6px 18px rgba(0,0,0,0.06);
 }
 
 /* Navbar base */
@@ -18,8 +19,8 @@
   flex-direction: column;
   align-items: stretch;
   padding: 1rem 2rem;
-  background-color: #748DAE;
-  box-shadow: 0 6px 18px rgba(116,141,174,0.45);
+  background-color: var(--surface);
+  box-shadow: var(--shadow-strong);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -28,7 +29,7 @@
   width: 100%;
   box-sizing: border-box;
   margin: 0;
-}
+} 
 
 .navbar--collapsed {
   height: auto; /* solo top visible */
@@ -50,10 +51,10 @@
 .navbar__logo {
   font-size: 1.6rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text);
   margin: 0;
   letter-spacing: 0.25px;
-  text-shadow: 0 1px 0 rgba(0,0,0,0.2);
+  text-shadow: none;
   font-family: "Elms Sans", sans-serif;
 }
 
@@ -72,7 +73,7 @@
   width: 44px;
   height: 44px;
   background: transparent;
-  border: 1px solid rgba(255,255,255,0.2);
+  border: 1px solid rgba(0,0,0,0.08);
   border-radius: var(--radius);
   cursor: pointer;
   padding: 6px;
@@ -81,21 +82,21 @@
 }
 
 .navbar__toggle:hover {
-  background-color: rgba(255,255,255,0.1);
-  border-color: rgba(255,255,255,0.3);
+  background-color: rgba(0,0,0,0.04);
+  border-color: rgba(0,0,0,0.12);
 }
 
 .navbar__toggle:focus-visible {
-  outline: 2px solid rgba(255,255,255,0.3);
+  outline: 2px solid rgba(0,0,0,0.08);
   outline-offset: 3px;
-}
+} 
 
 /* Barras */
 .navbar__toggle .bar {
   display: block;
   width: 22px;
   height: 2.5px;
-  background-color: #ffffff;
+  background-color: var(--text);
   margin: 3px 0;
   border-radius: 2px;
   transition: transform 220ms var(--nav-transition), opacity 200ms ease;
@@ -110,7 +111,7 @@
 }
 .navbar__toggle.open .bar:nth-child(3) {
   transform: translateY(-6px) rotate(-45deg);
-}
+} 
 
 /* Navegación (animacion suave, accesible) */
 .navbar__navigation {
@@ -142,7 +143,7 @@
 .navbar__menu li a {
   display: inline-block;
   text-decoration: none;
-  color: #ffffff;
+  color: var(--text);
   font-weight: 500;
   padding: 0.45rem 0.85rem;
   border-radius: 6px;
@@ -151,10 +152,10 @@
 
 .navbar__menu li a:hover,
 .navbar__menu li a:focus {
-  background-color: rgba(255,255,255,0.2);
-  color: #ffffff;
+  background-color: rgba(0,0,0,0.04);
+  color: var(--text);
   transform: translateY(-1px);
-}
+} 
 
 /* Carrito - estado por defecto */
 .navbar__cart {
@@ -162,10 +163,10 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.4rem 0.9rem;
-  color: #ffffff;
+  color: var(--text);
   font-weight: 700;
-  background: rgba(255,255,255,0.15);
-  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(0,0,0,0.02);
+  border: 1px solid rgba(0,0,0,0.06);
   border-radius: 999px;
   transition: background 200ms ease, color 200ms ease, box-shadow 200ms ease, transform 120ms ease;
 }
@@ -204,14 +205,14 @@
   min-width: 20px;
   height: 20px;
   padding: 0 6px;
-  background: #F5CBCB;
-  color: #748DAE;
+  background: rgba(0,0,0,0.04);
+  color: var(--text);
   border-radius: 999px;
   font-size: 0.75rem;
   font-weight: 700;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-  border: 2px solid #748DAE;
-}
+  box-shadow: none;
+  border: 2px solid rgba(0,0,0,0.06);
+} 
 
 /* Responsive: en mobile el menu pasa a columna y el toggle se mantiene legible */
 @media (max-width: 768px) {

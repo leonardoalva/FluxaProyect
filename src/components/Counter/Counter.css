@@ -1,17 +1,17 @@
 .btn_counter {
   margin: 5px;
   padding: 8px 12px;
-  background: linear-gradient(180deg, #9ecad6, #748dae);
-  border: none;
-  color: #fff;
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,0.06);
+  color: #111;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 14px;
   border-radius: 10px;
   cursor: pointer;
-  box-shadow: 0 6px 12px rgba(116, 141, 174, 0.06);
-}
+  box-shadow: none;
+} 
 
 .Counter_Container {
   display: flex;

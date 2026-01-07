@@ -3,21 +3,21 @@
   margin: 0 auto;
   font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto,
     "Helvetica Neue", Arial;
-  color: var(--text, #748dae);
+  color: var(--text);
   background: transparent;
   max-width: 1200px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Component-level variables for scale & palette (falls back to global root vars) */
+/* Component-level variables (grayscale fallback) */
 .item-list-container {
-  --ilc-text: var(--text, #748dae);
-  --ilc-muted: var(--muted, #9ecad6);
-  --ilc-accent: var(--accent, #748dae);
-  --ilc-accent-strong: var(--accent-strong, #9ecad6);
+  --ilc-text: var(--text);
+  --ilc-muted: var(--muted);
+  --ilc-accent: var(--accent);
+  --ilc-accent-strong: var(--accent-strong);
   --ilc-radius: 12px;
-}
+} 
 
 .tituloItemList {
   font-size: clamp(1.125rem, 1.6vw, 1.6rem);
@@ -25,11 +25,11 @@
   margin: 14px 0 14px 0;
   text-align: center;
   font-weight: 600;
-  color: #748dae;
+  color: var(--text);
   letter-spacing: -0.02em;
   line-height: 1.05;
   padding-bottom: 6px;
-  border-bottom: 1px solid rgba(116, 141, 174, 0.04);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
 }
 
 .item-list-container p {
@@ -64,10 +64,6 @@
   overflow: hidden;
 }
 
-.itemList_grid .card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 14px 30px rgba(116, 141, 174, 0.08);
-}
 
 /* Images inside cards (if present) */
 .itemList_grid .card img {
@@ -105,25 +101,21 @@
   gap: 8px;
   padding: 8px 12px;
   border-radius: 10px;
-  background: linear-gradient(
-    180deg,
-    var(--ilc-accent),
-    var(--ilc-accent-strong)
-  );
-  color: #fff;
-  border: none;
+  background: #ffffff;
+  color: var(--text);
+  border: 1px solid rgba(0,0,0,0.08);
   cursor: pointer;
   font-weight: 700;
   font-size: 0.95rem;
-  box-shadow: 0 6px 16px rgba(116, 141, 174, 0.12);
+  box-shadow: none;
   transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
 }
 
 .item-list-container .btn:hover,
 .itemList_grid .card .btn:hover {
-  transform: translateY(-2px) scale(1.01);
-  box-shadow: 0 10px 22px rgba(116, 141, 174, 0.14);
-}
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.04);
+} 
 
 /* Small secondary button style (outline) */
 .item-list-container .btn--outline,

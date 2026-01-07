@@ -4,10 +4,8 @@
   font-weight: 400;
 
   color-scheme: light;
-/* 
-    color: #748DAE;
-  background-color: #F5CBCB; */
-  background-color: rgb(255, 255, 255);
+  /* palette: grayscale */
+  background-color: #ffffff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -19,11 +17,15 @@ a {
   text-decoration: inherit;
 }
 a:hover {
-  color: #F5CBCB;
+  color: var(--muted);
 }
 
 .btn_detalle{
-background-color: #748DAE;
+  background: transparent;
+  border: 1px solid rgba(0,0,0,0.08);
+  color: var(--text);
+  padding: 8px 12px;
+  border-radius: 8px;
 }
 
 body {
@@ -42,14 +44,16 @@ h1 {
 
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 1px solid rgba(0,0,0,0.06);
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: "Elms Sans", sans-serif;
-  background-color: #748DAE;
+  background-color: transparent;
+  color: var(--text);
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: border-color 0.25s, transform 0.12s ease;
 }
+button:hover{transform:translateY(-1px);border-color:rgba(0,0,0,0.12)}
 
 
