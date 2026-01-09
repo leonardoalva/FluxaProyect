@@ -14,10 +14,6 @@ const Cart = () => {
     console.log('Carrito actualizado (desde Cart component):', cart);
   }, [cart, getTotal]);
 
-  const imgSrc = (imageUrl, name) => {
-    if (!imageUrl) return "/images/placeholder.png";
-    return imageUrl.startsWith("/") ? imageUrl : `/${imageUrl}`;
-  };
 
   return (
     <div className="cart">
@@ -31,7 +27,7 @@ const Cart = () => {
             <li className="cart-item" key={item.id}>
               <img
                 className="cart-item__img"
-                src={imgSrc(item.imageUrl, item.name)}
+                src={item.imageUrl}
                 alt={item.name}
                 width="48"
                 height="48"
@@ -56,7 +52,10 @@ const Cart = () => {
           <div className="cart__total">
             Total: <span className="cart__total-amount">${totalAmount}</span>
           </div>
-          <button onClick={clearCart}>Vaciar Carrito</button>
+
+          {/* <button onClick={clearCart}>Vaciar Carrito</button>
+           */}
+          
           <button className="checkout-btn" onClick={checkout}>Finalizar Compra</button>
         </>
       )}

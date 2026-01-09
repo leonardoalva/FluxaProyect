@@ -3,6 +3,7 @@ import React from "react";
 import Inicio from "./pages/Inicio";
 import Cart from "./components/Cart/Cart";
 import Navbar from "./components/Navbar/Navbar";
+import Auth from "./components/Auth/Auth";
 import Footer from "./components/Footer/Footer";
 import ItemListContainer from "./components/ItemListContainer/ItemListContainer";
 import ItemDetailContainer from "./components/ItemDetailContainer/ItemDetailContainer";
@@ -22,7 +23,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Inicio />} />
 
-          <Route path="/admin" element={<AdminPanel />} />
+          <Route path="/admin" element={<Auth />} />
           <Route
             path="/category/:category"
             element={<ItemListContainer titulo="categoria" />}
