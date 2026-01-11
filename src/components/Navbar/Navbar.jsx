@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useCart } from "../../context/useCart";
 import { Link, useLocation } from "react-router-dom";
+import { getProducts } from "../../services/products";
 import "./Navbar.css";
 
 const Navbar = () => {
@@ -8,6 +9,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
   const { cart, getCant } = useCart();
+  const [categories, setCategories] = useState([]);
   // número total de items (suma de las cantidades 'count' en cada producto)
   const cartItems =
     typeof getCant === "function" ? getCant() : cart ? cart.length : 0;
@@ -23,6 +25,33 @@ const Navbar = () => {
     document.addEventListener("mousedown", handleClickOutside);
     // Limpia el listener al desmontar el componente
     return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    getProducts()
+      .then((data) => {
+        if (cancelled) return;
+
+        const unique = Array.from(
+          new Set(
+            (data ?? [])
+              .map((p) => (typeof p?.category === "string" ? p.category.trim() : ""))
+              .filter(Boolean)
+          )
+        ).sort((a, b) => a.localeCompare(b, "es", { sensitivity: "base" }));
+
+        setCategories(unique);
+      })
+      .catch((err) => {
+        console.error("Error al cargar categorías:", err);
+        if (!cancelled) setCategories([]);
+      });
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   // Oculta el navbar en la página de inicio (ruta "/")
@@ -80,16 +109,18 @@ const Navbar = () => {
       {/* Menú expandible */}
       <nav ref={menuRef} className="navbar__navigation">
         <ul className="navbar__menu">
-          <li>
-            <Link to="/products" onClick={() => setIsOpen(false)}>
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link to="/games" onClick={() => setIsOpen(false)}>
-              Quienes somos?
-            </Link>
-          </li>
+          
+          
+          {categories.map((cat) => (
+            <li key={cat}>
+              <Link
+                to={`/category/${encodeURIComponent(cat)}`}
+                onClick={() => setIsOpen(false)}
+              >
+                {cat.toLocaleUpperCase("es")}
+              </Link>
+            </li>
+          ))}
           <li>
             <Link to="/admin" onClick={() => setIsOpen(false)}>
               Admin
