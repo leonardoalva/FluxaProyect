@@ -1,8 +1,69 @@
 import { CartContext } from "./CartContext";
 import { useState, useEffect } from "react";
-import { AbortedDeferredError } from "react-router-dom";
 import Swal from "sweetalert2";
 import { getProduct, updateProduct } from "../services/products";
+
+const buildWhatsAppCheckoutMessage = (cart) => {
+  const lines = (cart ?? []).map((item) => {
+    const name = item?.name ?? item?.title ?? item?.nombre ?? "Producto";
+    const count = Number(item?.count ?? 0);
+    return `- ${name} x${count}`;
+  });
+
+  const total = (cart ?? []).reduce(
+    (acc, item) => acc + (Number(item?.count ?? 0) * Number(item?.price ?? 0)),
+    0
+  );
+
+  const totalText = Number.isFinite(total) ? total.toFixed(2) : "0.00";
+
+  return [
+    "Hola! Quiero finalizar mi compra:",
+    "",
+    ...lines,
+    "",
+    `Total: $${totalText}`,
+  ].join("\n");
+};
+
+const openWhatsAppWithMessage = (message) => {
+  const phoneRaw = import.meta.env.VITE_WHATSAPP_PHONE;
+  const phone = typeof phoneRaw === "string" ? phoneRaw.replace(/\D/g, "") : "";
+
+  if (import.meta.env.DEV) {
+    console.log("[WA] VITE_WHATSAPP_PHONE:", phoneRaw);
+    console.log("[WA] Phone parseado:", phone);
+  }
+
+  if (!phone) {
+    Swal.fire({
+      title: "Falta el número de WhatsApp",
+      text: "No se detectó VITE_WHATSAPP_PHONE. Revisá tu .env y reiniciá npm run dev.",
+      icon: "warning",
+    });
+    return null;
+  }
+
+  const encoded = encodeURIComponent(message);
+  const url = phone
+    ? `https://api.whatsapp.com/send?phone=${phone}&text=${encoded}`
+    : `https://api.whatsapp.com/send?text=${encoded}`;
+
+  if (import.meta.env.DEV) {
+    console.log("[WA] URL:", url);
+  }
+
+  const opened = window.open(url, "_blank", "noopener,noreferrer");
+  if (!opened) {
+    Swal.fire({
+      title: "Popup bloqueado",
+      text: "Tu navegador bloqueó la apertura de WhatsApp en una nueva pestaña. Permití popups para este sitio y volvé a intentar.",
+      icon: "warning",
+    });
+  }
+
+  return opened;
+};
 
 function CartProvider({ children }) {
   const [carrito, setCarrito] = useState([]);
@@ -109,6 +170,17 @@ const checkout = async () => {
 
   if (!result.isConfirmed) return;
 
+  // Reservar una pestaña (user-gesture) para evitar que el navegador bloquee el popup
+  const waTab = window.open("about:blank", "_blank");
+  if (waTab) {
+    try {
+      waTab.document.title = "WhatsApp";
+      waTab.document.body.innerHTML = "<p>Preparando tu mensaje de WhatsApp...</p>";
+    } catch {
+      // ignore
+    }
+  }
+
   Swal.fire({
     title: 'Procesando pedido',
     text: 'Actualizando stock...',
@@ -117,6 +189,8 @@ const checkout = async () => {
   });
 
   try {
+    const cartSnapshot = Array.isArray(carrito) ? [...carrito] : [];
+
     await Promise.all(
       carrito.map(async (item) => {
         const prod = await getProduct(item.id);
@@ -136,6 +210,47 @@ const checkout = async () => {
       })
     );
 
+    const waMessage = buildWhatsAppCheckoutMessage(cartSnapshot);
+    const phoneRaw = import.meta.env.VITE_WHATSAPP_PHONE;
+    const phone = typeof phoneRaw === "string" ? phoneRaw.replace(/\D/g, "") : "";
+    const encoded = encodeURIComponent(waMessage);
+    const waUrl = phone
+      ? `https://api.whatsapp.com/send?phone=${phone}&text=${encoded}`
+      : null;
+
+    if (!waUrl) {
+      if (waTab && !waTab.closed) waTab.close();
+      Swal.fire({
+        title: "Falta el número de WhatsApp",
+        text: "No se detectó VITE_WHATSAPP_PHONE. Revisá tu .env y reiniciá npm run dev.",
+        icon: "warning",
+      });
+      return;
+    }
+
+    if (waTab && !waTab.closed) {
+      try {
+        waTab.location.href = waUrl;
+        setTimeout(() => {
+          try {
+            if (waTab && !waTab.closed) waTab.location.href = waUrl;
+          } catch {
+            // ignore
+          }
+        }, 250);
+      } catch (e) {
+        console.warn("No se pudo redirigir la pestaña reservada a WhatsApp", e);
+        openWhatsAppWithMessage(waMessage);
+      }
+    } else {
+      openWhatsAppWithMessage(waMessage);
+    }
+
+    try {
+      localStorage.setItem("fluxa_cart", JSON.stringify([]));
+    } catch (e) {
+      console.warn("No se pudo limpiar el carrito en localStorage", e);
+    }
     setCarrito([]);
     Swal.fire({
       title: '¡Compra realizada!',
@@ -147,6 +262,7 @@ const checkout = async () => {
     });
   } catch (err) {
     console.error('Error al procesar el pedido:', err);
+    if (waTab && !waTab.closed) waTab.close();
     Swal.fire({
       title: 'Error',
       text: `No fue posible actualizar el stock: ${err.message}`,
