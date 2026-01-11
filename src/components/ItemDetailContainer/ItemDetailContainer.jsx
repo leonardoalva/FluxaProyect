@@ -27,7 +27,7 @@ getProducts()
 
 
   return (
-<main className="item-detail-container">
+<main className="item-detail-container item-detail-view">
   {/* Renderizado condicional basado en la carga del detalle, object.key devuelve una lista de claves, y el length verifica si hay datos */}
     {Object.keys(detail).length > 0 ? (
       <ItemDetail detail={detail} />
