@@ -10,3 +10,14 @@ Currently, two official plugins are available:
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+## Netlify (deploy)
+
+- **SPA routing:** ya existe `public/_redirects` con `/* /index.html 200` para que React Router funcione al refrescar páginas.
+- **Build settings:**
+	- Build command: `npm run build`
+	- Publish directory: `dist`
+- **Checkout por WhatsApp:**
+	- Variable opcional: `VITE_WHATSAPP_PHONE` (ej: `54911XXXXXXXX` sin `+`)
+	- En Netlify se define en **Site settings → Build & deploy → Environment → Environment variables**.
+	- Si no está definida, el checkout abre WhatsApp con el mensaje listo y permite elegir el contacto manualmente.

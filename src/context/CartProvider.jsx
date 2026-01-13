@@ -35,19 +35,20 @@ const openWhatsAppWithMessage = (message) => {
     console.log("[WA] Phone parseado:", phone);
   }
 
-  if (!phone) {
-    Swal.fire({
-      title: "Falta el número de WhatsApp",
-      text: "No se detectó VITE_WHATSAPP_PHONE. Revisá tu .env y reiniciá npm run dev.",
-      icon: "warning",
-    });
-    return null;
-  }
-
   const encoded = encodeURIComponent(message);
   const url = phone
     ? `https://api.whatsapp.com/send?phone=${phone}&text=${encoded}`
-    : `https://api.whatsapp.com/send?text=${encoded}`;
+    : `https://wa.me/?text=${encoded}`;
+
+  if (!phone) {
+    // En producción (Netlify) es común olvidarse de setear env vars en el build.
+    // Permitimos igualmente continuar abriendo WhatsApp con el mensaje listo.
+    Swal.fire({
+      title: "Número de WhatsApp no configurado",
+      text: "No se detectó VITE_WHATSAPP_PHONE. Se abrirá WhatsApp con el mensaje para que elijas el contacto manualmente.",
+      icon: "info",
+    });
+  }
 
   if (import.meta.env.DEV) {
     console.log("[WA] URL:", url);
@@ -170,17 +171,6 @@ const checkout = async () => {
 
   if (!result.isConfirmed) return;
 
-  // Reservar una pestaña (user-gesture) para evitar que el navegador bloquee el popup
-  const waTab = window.open("about:blank", "_blank");
-  if (waTab) {
-    try {
-      waTab.document.title = "WhatsApp";
-      waTab.document.body.innerHTML = "<p>Preparando tu mensaje de WhatsApp...</p>";
-    } catch {
-      // ignore
-    }
-  }
-
   Swal.fire({
     title: 'Procesando pedido',
     text: 'Actualizando stock...',
@@ -216,35 +206,11 @@ const checkout = async () => {
     const encoded = encodeURIComponent(waMessage);
     const waUrl = phone
       ? `https://api.whatsapp.com/send?phone=${phone}&text=${encoded}`
-      : null;
+      : `https://wa.me/?text=${encoded}`;
 
-    if (!waUrl) {
-      if (waTab && !waTab.closed) waTab.close();
-      Swal.fire({
-        title: "Falta el número de WhatsApp",
-        text: "No se detectó VITE_WHATSAPP_PHONE. Revisá tu .env y reiniciá npm run dev.",
-        icon: "warning",
-      });
-      return;
-    }
-
-    if (waTab && !waTab.closed) {
-      try {
-        waTab.location.href = waUrl;
-        setTimeout(() => {
-          try {
-            if (waTab && !waTab.closed) waTab.location.href = waUrl;
-          } catch {
-            // ignore
-          }
-        }, 250);
-      } catch (e) {
-        console.warn("No se pudo redirigir la pestaña reservada a WhatsApp", e);
-        openWhatsAppWithMessage(waMessage);
-      }
-    } else {
-      openWhatsAppWithMessage(waMessage);
-    }
+    // Sin _blank: navegar en la misma pestaña para evitar pestañas en blanco.
+    // Esto también evita bloqueos de popup en producción.
+    window.location.assign(waUrl);
 
     try {
       localStorage.setItem("fluxa_cart", JSON.stringify([]));
@@ -262,7 +228,6 @@ const checkout = async () => {
     });
   } catch (err) {
     console.error('Error al procesar el pedido:', err);
-    if (waTab && !waTab.closed) waTab.close();
     Swal.fire({
       title: 'Error',
       text: `No fue posible actualizar el stock: ${err.message}`,
