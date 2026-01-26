@@ -50,7 +50,8 @@
   grid-template-columns: repeat(1, 1fr);
   gap: 1.5rem;
   padding: 8px;
-  align-items: start;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Card: elevate product items with subtle surfaces */
@@ -156,6 +157,7 @@
   .itemList_grid {
     grid-template-columns: repeat(3, minmax(240px, 1fr));
     gap: 22px;
+    justify-content: center;
   }
   .itemList_grid .card img {
     height: 180px;

@@ -8,7 +8,8 @@ import { getProducts } from "../../services/products";
 const ItemListContainer = ({ titulo }) => {
   // estado para almacenar los productos
   const [products, setProducts] = useState([]);
-  const { category } = useParams();
+  let { category } = useParams();
+  const normCategory = category ? category.trim().toLowerCase() : null;
 
 
   useEffect(() => {
@@ -16,8 +17,14 @@ const ItemListContainer = ({ titulo }) => {
     getProducts()
       // Filtrar productos por categoría si se proporciona
       .then((data) => {
-        if (category) {
-          setProducts(data.filter((product) => product.category === category));
+        if (normCategory) {
+          setProducts(
+            data.filter(
+              (product) =>
+                typeof product.category === "string" &&
+                product.category.trim().toLowerCase() === normCategory
+            )
+          );
         } else {
           setProducts(data);
         }

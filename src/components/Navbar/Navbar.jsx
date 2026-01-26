@@ -34,14 +34,15 @@ const Navbar = () => {
       .then((data) => {
         if (cancelled) return;
 
-        const unique = Array.from(
-          new Set(
-            (data ?? [])
-              .map((p) => (typeof p?.category === "string" ? p.category.trim() : ""))
-              .filter(Boolean)
-          )
-        ).sort((a, b) => a.localeCompare(b, "es", { sensitivity: "base" }));
-
+        // Agrupar categorías ignorando mayúsculas/minúsculas y espacios
+        const catMap = {};
+        (data ?? []).forEach((p) => {
+          if (typeof p?.category === "string") {
+            const norm = p.category.trim().toLowerCase();
+            if (!catMap[norm]) catMap[norm] = p.category.trim();
+          }
+        });
+        const unique = Object.values(catMap).sort((a, b) => a.localeCompare(b, "es", { sensitivity: "base" }));
         setCategories(unique);
       })
       .catch((err) => {
@@ -111,16 +112,19 @@ const Navbar = () => {
         <ul className="navbar__menu">
           
           
-          {categories.map((cat) => (
-            <li key={cat}>
-              <Link
-                to={`/category/${encodeURIComponent(cat)}`}
-                onClick={() => setIsOpen(false)}
-              >
-                {cat.toLocaleUpperCase("es")}
-              </Link>
-            </li>
-          ))}
+          {categories.map((cat) => {
+            const norm = cat.trim().toLowerCase();
+            return (
+              <li key={norm}>
+                <Link
+                  to={`/category/${encodeURIComponent(norm)}`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  {cat.toLocaleUpperCase("es")}
+                </Link>
+              </li>
+            );
+          })}
           <li>
             <Link to="/admin" onClick={() => setIsOpen(false)}>
               Admin
